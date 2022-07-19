@@ -47,4 +47,16 @@ app.get("/statement/:cpf", (request, response) => {
   return response.json(customer.statement);
 });
 
+app.get("/statementHeader", (request, response) => {
+  const { cpf } = request.headers;
+
+  const customer = customers.find((customer) => customer.cpf === cpf);
+
+  if (!customer) {
+    return response.status(400).json({ error: "Customer not found!" });
+  }
+
+  return response.json(customer.statement);
+});
+
 app.listen(3333);
